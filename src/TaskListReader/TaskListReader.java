@@ -66,16 +66,38 @@ class TaskBundle {
     
     //return list of objects Task (convert String List to Object List)
     public List<Task> getListRunningTasks() {
-     
+        
+        //choose memory unit depends of Locale:
+        int unitLength;
+        Locale locale = Locale.getDefault();
+        if (locale.getLanguage()=="ru"){
+            unitLength = 0;
+        } else unitLength = 1;
+        
+        
             Iterator<String> it = strListRunningTasks.iterator();
             while (it.hasNext()) {
                 // use comma as separator
                 String[] taskParametr = it.next().split("\",\"");
+                
+                
                 int len = taskParametr[4].length();// test func
-                String memory = taskParametr[4].replaceAll("[-+.^:,]","");
+                
+                //remove specific symbol
+                String memory = taskParametr[4].replaceAll("[^\\w\\s]","");
+                
+                //  "[^\\w\\s]",""      "[-+.^:,]",""
+                
+                //get new Length after specific symbol remove
                 int memoryLength = memory.length();
-                memory = memory.substring(0,memoryLength-3);                
+                
+                //cut unit from memory String 
+                memory = memory.substring(0,memoryLength-(unitLength+1));
+
+                
                 int first = Integer.parseInt(memory); //test Integer func
+                
+                
                 Task t = new Task(taskParametr[0],taskParametr[1], Integer.parseInt(memory));
                 ListRunningTasks.add(t);
             }
