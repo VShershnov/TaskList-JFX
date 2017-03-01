@@ -29,14 +29,60 @@ class Task {
     public String toString() {
         return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
     }
+ }
+
+class TasksList {
+    List<Task> tasksList = new ArrayList<Task>();
     
+    // Constructor. list of objects Task (convert String List to Object List)
+    TasksList (TaskBundle tsBd){
+        List<String> tasksStrList = tsBd.getTasksStrList();
+        
+        //choose memory unit depends of Locale:
+        int unitLength;
+        Locale locale = Locale.getDefault();
+            if (locale.getLanguage()=="ru"){
+                unitLength = 0;
+            } else unitLength = 1;
+        
+        
+        Iterator<String> it = tasksStrList.iterator();
+        while (it.hasNext()) {
+            // use comma as separator
+            String[] taskSplit = it.next().split("\",\"");
+                
+            //remove specific symbol
+            //  "[^\\w\\s]",""      "[-+.^:,]",""
+            String memory = taskSplit[4].replaceAll("[^\\w\\s]","");
+                
+            //get new Length after specific symbol remove
+            int memoryLength = memory.length();
+                
+            //cut unit from memory String 
+            memory = memory.substring(0,memoryLength-(unitLength+1));
+
+            Task t = new Task(taskSplit[0],taskSplit[1], Integer.parseInt(memory));
+            tasksList.add(t);
+        }    
+            
+    }
+
+    public List<Task> getTasksList() {
+        return tasksList;
+    }
     
+    public List<Task> groupByMem (){
+        List<Task> groupedTasksList = new ArrayList<Task>();
+        
+    
+    return groupedTasksList;
+    }
 }
+
 
 //class dump TaskList from tesklist.exe 
 class TaskBundle {
-    List<String> strListRunningTasks = new ArrayList<String>();
-    List<Task> ListRunningTasks = new ArrayList<Task>();
+    List<String> tasksStrList = new ArrayList<String>();
     BufferedReader input;
     
     //dump TaskList from tesklist.exe to csv String List
@@ -50,7 +96,7 @@ class TaskBundle {
              if (!line.trim().equals("")) {
                  // keep only the process name
                  line = line.substring(1);
-                 strListRunningTasks.add(line);
+                 tasksStrList.add(line);
              }
          }
           input.close();
@@ -59,42 +105,11 @@ class TaskBundle {
           err.printStackTrace();
         }
     }
-    
-    public List<String> getStrListRunningTasks() {
-       return strListRunningTasks;
+  
+    public List<String> getTasksStrList() {
+       return tasksStrList;
     }
     
-    //return list of objects Task (convert String List to Object List)
-    public List<Task> getListRunningTasks() {
-        
-        //choose memory unit depends of Locale:
-        int unitLength;
-        Locale locale = Locale.getDefault();
-        if (locale.getLanguage()=="ru"){
-            unitLength = 0;
-        } else unitLength = 1;
-        
-        
-            Iterator<String> it = strListRunningTasks.iterator();
-            while (it.hasNext()) {
-                // use comma as separator
-                String[] taskParametr = it.next().split("\",\"");
-                
-                //remove specific symbol
-                //  "[^\\w\\s]",""      "[-+.^:,]",""
-                String memory = taskParametr[4].replaceAll("[^\\w\\s]","");
-                
-                //get new Length after specific symbol remove
-                int memoryLength = memory.length();
-                
-                //cut unit from memory String 
-                memory = memory.substring(0,memoryLength-(unitLength+1));
-
-                Task t = new Task(taskParametr[0],taskParametr[1], Integer.parseInt(memory));
-                ListRunningTasks.add(t);
-            }
-            return ListRunningTasks;
-        }
 }
 
 public class TaskListReader {
@@ -102,21 +117,12 @@ public class TaskListReader {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+      
+    TaskBundle bundle = new TaskBundle();
+    System.out.println(bundle.getTasksStrList().toString());
+     TasksList tl = new TasksList(bundle);
     
-    String encoding = System.getProperty("console.encoding", "utf-8");
-    System.setProperty("console.encoding","utf-8");
-   // PrintStream ps = new PrintStream() (System.out, encoding);
-    System.out.println("Console Encoding: "+encoding.toString());
-     
-    TaskBundle taskLists = new TaskBundle();
-    System.out.println(taskLists.getStrListRunningTasks().toString());
-    
-    Locale locale = Locale.getDefault();
-    System.out.println("Default Locale: "+locale);
-    
-    List<Task> tsk = new ArrayList<Task>();
-    tsk = taskLists.getListRunningTasks();
-    Iterator<Task> it = tsk.iterator();
+    Iterator<Task> it = tl.getTasksList().iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
        }
