@@ -80,13 +80,9 @@ class TaskBundle {
                 // use comma as separator
                 String[] taskParametr = it.next().split("\",\"");
                 
-                
-                int len = taskParametr[4].length();// test func
-                
                 //remove specific symbol
-                String memory = taskParametr[4].replaceAll("[^\\w\\s]","");
-                
                 //  "[^\\w\\s]",""      "[-+.^:,]",""
+                String memory = taskParametr[4].replaceAll("[^\\w\\s]","");
                 
                 //get new Length after specific symbol remove
                 int memoryLength = memory.length();
@@ -94,17 +90,11 @@ class TaskBundle {
                 //cut unit from memory String 
                 memory = memory.substring(0,memoryLength-(unitLength+1));
 
-                
-                int first = Integer.parseInt(memory); //test Integer func
-                
-                
                 Task t = new Task(taskParametr[0],taskParametr[1], Integer.parseInt(memory));
                 ListRunningTasks.add(t);
             }
-            
             return ListRunningTasks;
         }
-    
 }
 
 public class TaskListReader {
