@@ -45,6 +45,7 @@ class Task {
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -65,6 +66,8 @@ class Task {
         }
         return true;
     }
+
+    
 
     
  }
@@ -112,18 +115,23 @@ class TasksList {
         List<Task> groupedTasksList = new ArrayList<Task>();
         
         Iterator<Task> it1 = tasksList.iterator();
-        Iterator<Task> it2 = groupedTasksList.iterator();
+        
         while (it1.hasNext()) {
             Task tsk1 = it1.next();
             if (groupedTasksList.contains(tsk1)){
+                Iterator<Task> it2 = groupedTasksList.iterator();
                 while (it2.hasNext()) {
                     Task tsk2 = it2.next();
                     if (tsk2.equals(tsk1)){
                         tsk2.setMemory(tsk1.getMemory()+tsk2.getMemory());
+                        break;
                     }
                 }
             }
-            else groupedTasksList.add(tsk1);
+            else {
+                groupedTasksList.add(tsk1);
+                System.out.println(tsk1.toString() + " --------added");
+            }
         }
     return groupedTasksList;
     }
@@ -177,10 +185,11 @@ public class TaskListReader {
             System.out.println(it.next().toString());
        }
     
-    System.out.println("-----------Grouped Tasks by Memory:------------");    
+    
     Iterator<Task> itg = tasks.getGroupedByMem().iterator();
+    System.out.println("-----------------------Grouped Tasks by Memory:------------------------");
         while (itg.hasNext()) {
-            System.out.println(it.next().toString());  
+            System.out.println(itg.next().toString());  
         
         }
     }
