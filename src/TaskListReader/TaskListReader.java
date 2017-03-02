@@ -29,6 +29,44 @@ class Task {
     public String toString() {
         return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getMemory() {
+        return memory;
+    }
+
+    public void setMemory(int memory) {
+        this.memory = memory;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Task other = (Task) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    
  }
 
 class TasksList {
@@ -44,7 +82,6 @@ class TasksList {
             if (locale.getLanguage()=="ru"){
                 unitLength = 0;
             } else unitLength = 1;
-        
         
         Iterator<String> it = tasksStrList.iterator();
         while (it.hasNext()) {
@@ -71,14 +108,26 @@ class TasksList {
         return tasksList;
     }
     
-    public List<Task> groupByMem (){
+    public List<Task> getGroupedByMem (){
         List<Task> groupedTasksList = new ArrayList<Task>();
         
-    
+        Iterator<Task> it1 = tasksList.iterator();
+        Iterator<Task> it2 = groupedTasksList.iterator();
+        while (it1.hasNext()) {
+            Task tsk1 = it1.next();
+            if (groupedTasksList.contains(tsk1)){
+                while (it2.hasNext()) {
+                    Task tsk2 = it2.next();
+                    if (tsk2.equals(tsk1)){
+                        tsk2.setMemory(tsk1.getMemory()+tsk2.getMemory());
+                    }
+                }
+            }
+            else groupedTasksList.add(tsk1);
+        }
     return groupedTasksList;
     }
 }
-
 
 //class dump TaskList from tesklist.exe 
 class TaskBundle {
@@ -120,12 +169,19 @@ public class TaskListReader {
       
     TaskBundle bundle = new TaskBundle();
     System.out.println(bundle.getTasksStrList().toString());
-     TasksList tl = new TasksList(bundle);
     
-    Iterator<Task> it = tl.getTasksList().iterator();
+    TasksList tasks = new TasksList(bundle);
+    
+    Iterator<Task> it = tasks.getTasksList().iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
        }
-  
+    
+    System.out.println("-----------Grouped Tasks by Memory:------------");    
+    Iterator<Task> itg = tasks.getGroupedByMem().iterator();
+        while (itg.hasNext()) {
+            System.out.println(it.next().toString());  
+        
+        }
     }
 }
