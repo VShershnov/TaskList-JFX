@@ -24,7 +24,7 @@ public class TaskOverviewController {
     @FXML
     private TableColumn<Task, String> pIDColumn;
     @FXML
-    private TableColumn<Task, String> memoryColumn;
+    private TableColumn<Task, Integer> memoryColumn;
 
     @FXML
     private Label nameLabel;
@@ -52,7 +52,7 @@ public class TaskOverviewController {
         // Инициализация таблицы адресатов с тремя столбцами.
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         pIDColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
-        memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty());
+        memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
     }
     
     /**

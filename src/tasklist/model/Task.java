@@ -27,7 +27,7 @@ public class Task {
     
     private final StringProperty name;
     private final StringProperty pID;
-    private final StringProperty memory;
+    private final IntegerProperty memory;
     
 
     /**
@@ -48,7 +48,7 @@ public class Task {
         this.pID = new SimpleStringProperty(pID);
 
         // Какие-то фиктивные начальные данные для удобства тестирования.
-        this.memory = new SimpleStringProperty("99663");
+        this.memory = new SimpleIntegerProperty(99663);
     }
 
     public StringProperty nameProperty() {
@@ -76,16 +76,16 @@ public class Task {
     }
     
     
-    public StringProperty memoryProperty() {
+    public IntegerProperty memoryProperty() {
         return memory;
     }
 
     public int getMemory() {
-        return Integer.parseInt(memory.get());
+        return memory.get();
     }
     
     public void setMemory(Integer memory) {
-        this.memory.set(memory.toString());
+        this.memory.set(memory);
     }
       
 }
