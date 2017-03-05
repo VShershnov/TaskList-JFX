@@ -5,7 +5,8 @@
  */
 package tasklist;
 
-import tasklist.model.Task;
+import tasklist.model.*;
+import tasklist.view.*;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 
 
 /**
@@ -58,7 +60,7 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showPersonOverview();
+        showTaskOverview();
     }
     
     /**
@@ -83,15 +85,20 @@ public class MainApp extends Application {
     /**
      * Показывает в корневом макете сведения об адресатах.
      */
-    public void showPersonOverview() {
+    public void showTaskOverview() {
         try {
             // Загружаем сведения об адресатах.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/TaskListOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/TaskOverview.fxml"));
             AnchorPane taskListOverview = (AnchorPane) loader.load();
 
             // Помещаем сведения об адресатах в центр корневого макета.
             rootLayout.setCenter(taskListOverview);
+            
+            // Даём контроллеру доступ к главному приложению.
+            TaskOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
