@@ -53,10 +53,6 @@ public class MainApp extends Application {
         while (itg.hasNext()) {
                 taskData.add(itg.next());  
             }
-        
-        //taskData.add(new Task("Hans", "1"));
-        
-        
     }
     
     /**
