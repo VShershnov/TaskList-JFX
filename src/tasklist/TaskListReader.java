@@ -3,74 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TaskListReader;
+package tasklist;
 
 import java.io.*;
 import java.util.*;
 import javax.management.ListenerNotFoundException;
+import tasklist.model.Task;
 
 /**
  *
  * @author vshershnov
  */
-
-class Task {
-    private String name;
-    private String pID;
-    private int memory;
-    
-    public Task(String name, String pID, int memory ){
-        this.name = name;
-        this.pID = pID;
-        this.memory = memory;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMemory() {
-        return memory;
-    }
-
-    public void setMemory(int memory) {
-        this.memory = memory;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Task other = (Task) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
-    }
-
-    
-
-    
- }
 
 class TasksList {
     List<Task> tasksList = new ArrayList<Task>();
@@ -170,27 +113,25 @@ class TaskBundle {
 }
 
 public class TaskListReader {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-      
-    TaskBundle bundle = new TaskBundle();
-    System.out.println(bundle.getTasksStrList().toString());
+    List<Task> groupedTasksList = new ArrayList<Task>();
     
-    TasksList tasks = new TasksList(bundle);
-    
-    Iterator<Task> it = tasks.getTasksList().iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next().toString());
-       }
-    
-    
-    Iterator<Task> itg = tasks.getGroupedByMem().iterator();
-    System.out.println("-----------------------Grouped Tasks by Memory:------------------------");
-        while (itg.hasNext()) {
-            System.out.println(itg.next().toString());  
+    public TaskListReader() {
         
-        }
+        TaskBundle bundle = new TaskBundle();
+        System.out.println(bundle.getTasksStrList().toString());
+
+        TasksList tasks = new TasksList(bundle);
+        groupedTasksList = tasks.getGroupedByMem();
+        
+        Iterator<Task> itg = groupedTasksList.iterator();
+        System.out.println("-----------------------Grouped Tasks by Memory:------------------------");
+            while (itg.hasNext()) {
+                System.out.println(itg.next().toString());  
+            }
     }
-}
+    
+    public List<Task> getGroupedTaskList() {
+        return this.groupedTasksList;
+    }
+    
+} 

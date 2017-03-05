@@ -8,6 +8,8 @@ package tasklist;
 import tasklist.model.*;
 import tasklist.view.*;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.collections.*;
@@ -38,10 +40,15 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // В качестве образца добавляем некоторые данные
-        taskData.add(new Task("Hans", "1"));
-        taskData.add(new Task("Ruth", "2"));
-        taskData.add(new Task("Heinz", "3"));
-        taskData.add(new Task("Cornelia", "4"));
+        TaskListReader tskRdr = new TaskListReader();
+        List<Task> taskList = tskRdr.getGroupedTaskList();
+        Iterator<Task> itg = taskList.iterator();
+        while (itg.hasNext()) {
+                taskData.add(itg.next());  
+            }
+        
+        //taskData.add(new Task("Hans", "1"));
+        
         
     }
     
