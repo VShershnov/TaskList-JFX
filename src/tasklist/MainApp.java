@@ -23,9 +23,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 
 
 /**
@@ -163,12 +163,12 @@ public class MainApp extends Application {
             prefs.put("filePath", file.getPath());
 
             // Обновление заглавия сцены.
-            primaryStage.setTitle("AddressApp - " + file.getName());
+            primaryStage.setTitle("TaskListApp - " + file.getName());
         } else {
             prefs.remove("filePath");
 
             // Обновление заглавия сцены.
-            primaryStage.setTitle("AddressApp");
+            primaryStage.setTitle("TaskListApp");
         }
     }
     
@@ -214,24 +214,27 @@ public class MainApp extends Application {
                     .newInstance(TaskListWrapper.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
+        
             // Обёртываем наши данные об адресатах.
             TaskListWrapper wrapper = new TaskListWrapper();
             wrapper.setTasks(taskData);
-
+         
             // Маршаллируем и сохраняем XML в файл.
-            m.marshal(wrapper, file);
+            m.marshal(wrapper, System.out);
+            m.marshal(wrapper, new File("d:/tasks.xml"));
 
             // Сохраняем путь к файлу в реестре.
             setTaskFilePath(file);
-        } catch (Exception e) { // catches ANY exception
+        } catch (JAXBException e) { // catches ANY exception
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not save data");
-            alert.setContentText("Could not save data to file:\n" + file.getPath());
+            alert.setContentText("JAXBException.....Could not save data to file:\n" + file.getPath());
 
             alert.showAndWait();
         }
+        
+        
     }
     
     /**
