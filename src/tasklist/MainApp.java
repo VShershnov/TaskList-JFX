@@ -5,15 +5,17 @@
  */
 package tasklist;
 
+import tasklist.model.Task;
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.collections.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 
 /**
  *
@@ -23,6 +25,31 @@ public class MainApp extends Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    /**
+     * Данные, в виде наблюдаемого списка tasks.
+     */
+    private ObservableList<Task> taskData = FXCollections.observableArrayList();
+    
+    /**
+     * Конструктор
+     */
+    public MainApp() {
+        // В качестве образца добавляем некоторые данные
+        taskData.add(new Task("Hans", "1"));
+        taskData.add(new Task("Ruth", "2"));
+        taskData.add(new Task("Heinz", "3"));
+        taskData.add(new Task("Cornelia", "4"));
+        
+    }
+    
+    /**
+     * Возвращает данные в виде наблюдаемого списка адресатов.
+     * @return
+     */
+    public ObservableList<Task> getTaskData() {
+        return taskData;
+    }
 
      @Override
     public void start(Stage primaryStage) {
