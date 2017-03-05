@@ -6,6 +6,8 @@
 package tasklist.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,6 +56,7 @@ public class TaskOverviewController {
         pIDColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
     }
+    
     
     /**
      * Вызывается главным приложением, которое даёт на себя ссылку.

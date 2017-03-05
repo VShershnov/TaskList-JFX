@@ -5,6 +5,7 @@
  */
 package tasklist.model;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -51,6 +52,47 @@ public class Task {
         this.memory = new SimpleIntegerProperty(99663);
     }
 
+    public Task(String name, String pID, int memory ){
+        this.name = new SimpleStringProperty(name);
+        this.pID = new SimpleStringProperty(pID);
+        this.memory = new SimpleIntegerProperty(memory);
+    }
+    
+    @Override
+    public String toString() {
+        return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.name.get());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Task other = (Task) obj;
+        if (!Objects.equals(this.name.get(), other.name.get())) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
+    
     public StringProperty nameProperty() {
         return name;
     }
