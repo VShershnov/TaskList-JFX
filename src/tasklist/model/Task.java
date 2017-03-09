@@ -13,6 +13,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 /**
@@ -91,12 +94,11 @@ public class Task {
     
     
     
-    
-    
     public StringProperty nameProperty() {
         return name;
     }
 
+    @XmlElement (name = "name")
     public String getName() {
         return name.get();
     }
@@ -108,7 +110,9 @@ public class Task {
     public StringProperty pIDProperty() {
         return pID;
     }
-
+    
+    @XmlTransient
+    //@XmlElement (name = "PID", required = false)
     public String getPID() {
         return pID.get();
     }
@@ -122,6 +126,7 @@ public class Task {
         return memory;
     }
 
+    @XmlElement (name = "memory")
     public int getMemory() {
         return memory.get();
     }

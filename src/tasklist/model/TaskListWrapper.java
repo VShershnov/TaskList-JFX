@@ -8,7 +8,9 @@ package tasklist.model;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * Вспомогательный класс для обёртывания списка адресатов.
@@ -20,7 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TaskListWrapper {
     private List tasks;
 
-    @XmlElement(name = "task")
+   @XmlElements({ @XmlElement(name = "task", type = Task.class) })
+   //@XmlElement(name = "task", type = Task.class)
     public List getTasks() {
         return tasks;
     }
