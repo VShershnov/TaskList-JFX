@@ -221,7 +221,7 @@ public class MainApp extends Application {
          
             // Маршаллируем и сохраняем XML в файл.
             m.marshal(wrapper, System.out);
-            m.marshal(wrapper, new File("d:/tasks.xml"));
+            m.marshal(wrapper, file);
 
             // Сохраняем путь к файлу в реестре.
             setTaskFilePath(file);
