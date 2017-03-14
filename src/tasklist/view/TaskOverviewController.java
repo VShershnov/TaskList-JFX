@@ -27,13 +27,32 @@ public class TaskOverviewController {
     private TableColumn<Task, String> pIDColumn;
     @FXML
     private TableColumn<Task, Integer> memoryColumn;
+    
+    @FXML
+    private Label tasksLabel;
+    
+    
+    
+    @FXML
+    private TableView<Task> taskFormFileTable;
+    @FXML
+    private TableColumn<Task, String> nameColumn1;
+    @FXML
+    private TableColumn<Task, String> pIDColumn1;
+    @FXML
+    private TableColumn<Task, Integer> memoryColumn1;
 
     @FXML
-    private Label nameLabel;
+    private Label tasksFromFileLabel;
+    
+    
     @FXML
-    private Label pIDLabel;
+    private TableView<Task> compareTable;
     @FXML
-    private Label memoryLabel;
+    private TableColumn<Task, String> diffColumn;
+    
+    @FXML
+    private Label compareLabel;
     
     // Ссылка на главное приложение.
     private MainApp mainApp;
