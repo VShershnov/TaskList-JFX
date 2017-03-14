@@ -51,7 +51,7 @@ public class TaskOverviewController {
      */
     @FXML
     private void initialize() {
-        // Инициализация таблицы адресатов с тремя столбцами.
+        // Инициализация таблицы задач с тремя столбцами.
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         pIDColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());

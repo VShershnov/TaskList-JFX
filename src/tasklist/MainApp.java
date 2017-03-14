@@ -46,7 +46,7 @@ public class MainApp extends Application {
      * Конструктор
      */
     public MainApp() {
-        // В качестве образца добавляем некоторые данные
+        // В качестве образца добавляем некоторые данные!!!!!!!!!!!!!!!!!!!!!!!!
         TaskListReader tskRdr = new TaskListReader();
         List<Task> taskList = tskRdr.getGroupedTaskList();
         Iterator<Task> itg = taskList.iterator();
@@ -56,7 +56,7 @@ public class MainApp extends Application {
     }
     
     /**
-     * Возвращает данные в виде наблюдаемого списка адресатов.
+     * Возвращает данные в виде наблюдаемого списка задач.
      * @return
      */
     public ObservableList<Task> getTaskData() {
@@ -74,8 +74,9 @@ public class MainApp extends Application {
     }
     
     /**
-     * Инициализирует корневой макет и пытается загрузить последний открытый
-     * файл с адресатами.
+     * Инициализирует корневой макет 
+     * ????? и пытается загрузить последний открытый
+     * файл с задачами.
      */
     public void initRootLayout() {
         try {
@@ -97,11 +98,14 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
         
-        // Пытается загрузить последний открытый файл с адресатами.
+        
+        /*
+        // Пытается загрузить последний открытый файл с задачами.
         File file = getTaskFilePath();
         if (file != null) {
             loadTaskDataFromFile(file);
         }
+        */
     }
 
     /**
@@ -109,12 +113,12 @@ public class MainApp extends Application {
      */
     public void showTaskOverview() {
         try {
-            // Загружаем сведения об адресатах.
+            // Загружаем сведения о задачах.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/TaskOverview.fxml"));
             AnchorPane taskListOverview = (AnchorPane) loader.load();
 
-            // Помещаем сведения об адресатах в центр корневого макета.
+            // Помещаем сведения о задачах в центр корневого макета.
             rootLayout.setCenter(taskListOverview);
             
             // Даём контроллеру доступ к главному приложению.

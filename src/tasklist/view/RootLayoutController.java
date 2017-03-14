@@ -34,12 +34,16 @@ public class RootLayoutController {
     }
     
     /**
-     * Создаёт пустую адресную книгу.
+     * Создаёт новый список задач.
      */
     @FXML
     private void handleNew() {
         mainApp.getTaskData().clear();
-        mainApp.setTaskFilePath(null);
+        mainApp.getTaskData();
+        
+                // Добавление в таблицу данных из наблюдаемого списка
+        //taskTable.setItems(mainApp.getTaskData());
+        //mainApp.setTaskFilePath(null);
     }
     
     /**
@@ -110,7 +114,7 @@ public class RootLayoutController {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("TaskListApp");
         alert.setHeaderText("About");
-        alert.setContentText("Author:Vitalii Shershnov\nWebsite: https://github.com/VShershnov/TaskList-JFX");
+        alert.setContentText("Author:Vitalii Shershnov\n Website: https://github.com/VShershnov/TaskList-JFX");
 
         alert.showAndWait();
     }

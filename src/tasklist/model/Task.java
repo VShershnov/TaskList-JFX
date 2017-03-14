@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  * Класс-модель для адресата (Task).
  * 
  */
+
+@XmlType(propOrder={"name", "memory"})
 public class Task {
     
     private final StringProperty name;
@@ -47,14 +49,24 @@ public class Task {
      * @param name
      * @param pID
      */
-    public Task(String name, String pID) {
+    public Task(String name, String memory) {
         this.name = new SimpleStringProperty(name);
-        this.pID = new SimpleStringProperty(pID);
-
+        
+        this.pID = new SimpleStringProperty("");
+        //this.pID = new SimpleStringProperty(memory);
         // Какие-то фиктивные начальные данные для удобства тестирования.
-        this.memory = new SimpleIntegerProperty(99663);
+        
+        this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
+        //this.memory = new SimpleIntegerProperty(999931);
     }
-
+    
+    public Task(String name, int memory) {
+        this.name = new SimpleStringProperty(name);
+        this.memory = new SimpleIntegerProperty(memory);
+        // Какие-то фиктивные начальные данные для удобства тестирования.
+        this.pID = new SimpleStringProperty("");
+    }
+    
     public Task(String name, String pID, int memory ){
         this.name = new SimpleStringProperty(name);
         this.pID = new SimpleStringProperty(pID);
@@ -112,7 +124,6 @@ public class Task {
     }
     
     @XmlTransient
-    //@XmlElement (name = "PID", required = false)
     public String getPID() {
         return pID.get();
     }
@@ -132,7 +143,7 @@ public class Task {
     }
     
     public void setMemory(Integer memory) {
-        this.memory.set(memory);
+        this.memory.set(Integer.valueOf(memory));
     }
       
 }
