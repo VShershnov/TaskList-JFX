@@ -56,8 +56,8 @@ public class Task {
         //this.pID = new SimpleStringProperty(memory);
         // Какие-то фиктивные начальные данные для удобства тестирования.
         
-        this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
-        //this.memory = new SimpleIntegerProperty(999931);
+        //this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
+        this.memory = new SimpleIntegerProperty(999931);
     }
     
     public Task(String name, int memory) {
