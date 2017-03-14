@@ -128,6 +128,14 @@ public class TaskListReader {
             while (itg.hasNext()) {
                 System.out.println(itg.next().toString());  
             }
+    
+        groupedTasksList.sort((o1, o2) -> o2.getMemory()-o1.getMemory());
+        
+        Iterator<Task> itg2 = groupedTasksList.iterator();
+        System.out.println("-----------------------Sorted Tasks by Memory:------------------------");
+            while (itg2.hasNext()) {
+                System.out.println(itg2.next().toString());  
+            }
     }
     
     public List<Task> getGroupedTaskList() {
