@@ -202,7 +202,7 @@ public class MainApp extends Application {
             // Чтение XML из файла и демаршализация.
             TaskListWrapper wrapper = (TaskListWrapper) um.unmarshal(file);
 
-            //taskData.clear();
+            taskDataLoad.clear();
             taskDataLoad.addAll(wrapper.getTasks());
 
             // Сохраняем путь к файлу в реестре.

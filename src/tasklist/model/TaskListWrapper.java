@@ -20,15 +20,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "tasks")
 public class TaskListWrapper {
-    private List tasks;
+    private List<Task> tasks;
 
    @XmlElements({ @XmlElement(name = "task", type = Task.class) })
    //@XmlElement(name = "task", type = Task.class)
-    public List getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 }
