@@ -27,13 +27,33 @@ public class TaskOverviewController {
     private TableColumn<Task, String> pIDColumn;
     @FXML
     private TableColumn<Task, Integer> memoryColumn;
+    
+    @FXML
+    private Label tasksLabel;
+    
+    
+    
+    @FXML
+    private TableView<Task> taskFormFileTable;
+    @FXML
+    private TableColumn<Task, String> nameColumn1;
+    @FXML
+    private TableColumn<Task, String> pIDColumn1;
+    @FXML
+    private TableColumn<Task, Integer> memoryColumn1;
 
     @FXML
-    private Label nameLabel;
+    private Label tasksFromFileLabel;
+    
+    
     @FXML
-    private Label pIDLabel;
+    private TableView<Task> compareTable;
     @FXML
-    private Label memoryLabel;
+    private TableColumn<Task, String> diffColumn;
+    
+    @FXML
+    private Label compareLabel;
+    
     
     // Ссылка на главное приложение.
     private MainApp mainApp;
@@ -55,6 +75,10 @@ public class TaskOverviewController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         pIDColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
+        
+        nameColumn1.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        pIDColumn1.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
+        memoryColumn1.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
     }
     
     
@@ -68,7 +92,8 @@ public class TaskOverviewController {
     
     // Добавление в таблицу данных из наблюдаемого списка
         taskTable.setItems(mainApp.getTaskData());
-    
+        taskFormFileTable.setItems(mainApp.getTaskDataLoad());
+        
     }
         
 }

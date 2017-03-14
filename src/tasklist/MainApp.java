@@ -41,12 +41,12 @@ public class MainApp extends Application {
      * Данные, в виде наблюдаемого списка tasks.
      */
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
+    private ObservableList<Task> taskDataLoad = FXCollections.observableArrayList();
     
     /**
      * Конструктор
      */
     public MainApp() {
-        // В качестве образца добавляем некоторые данные!!!!!!!!!!!!!!!!!!!!!!!!
         initTaskData();
     }
     
@@ -56,6 +56,10 @@ public class MainApp extends Application {
      */
     public ObservableList<Task> getTaskData() {
         return taskData;
+    }
+    
+    public ObservableList<Task> getTaskDataLoad() {
+        return taskDataLoad;
     }
     
     /**
@@ -146,7 +150,7 @@ public class MainApp extends Application {
     }
     
      /**
-     * Возвращает preference файла адресатов, то есть, последний открытый файл.
+     * Возвращает preference файла задач, то есть, последний открытый файл.
      * Этот preference считывается из реестра, специфичного для конкретной
      * операционной системы. Если preference не был найден, то возвращается null.
      * 
@@ -198,8 +202,8 @@ public class MainApp extends Application {
             // Чтение XML из файла и демаршализация.
             TaskListWrapper wrapper = (TaskListWrapper) um.unmarshal(file);
 
-            taskData.clear();
-            taskData.addAll(wrapper.getTasks());
+            //taskData.clear();
+            taskDataLoad.addAll(wrapper.getTasks());
 
             // Сохраняем путь к файлу в реестре.
             setTaskFilePath(file);
