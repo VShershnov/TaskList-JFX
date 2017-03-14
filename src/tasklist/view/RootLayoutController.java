@@ -39,11 +39,7 @@ public class RootLayoutController {
     @FXML
     private void handleNew() {
         mainApp.getTaskData().clear();
-        mainApp.getTaskData();
-        
-                // Добавление в таблицу данных из наблюдаемого списка
-        //taskTable.setItems(mainApp.getTaskData());
-        //mainApp.setTaskFilePath(null);
+        mainApp.initTaskData();
     }
     
     /**
