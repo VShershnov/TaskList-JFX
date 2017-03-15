@@ -190,14 +190,18 @@ public class MainApp1 {
             System.out.println("tester.MainApp1.saveTaskDataToFile()\n" +"JAXBException.....Could not save data to file:\n");
 
         }
-        
+    }
+    
+    public void saveTaskDataToXLSX(File file) throws IOException {
+        ExcelWriterChart excelWriter = new ExcelWriterChart(taskData, file);
         
     }
     
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
        MainApp1 MainApp = new MainApp1();
        File file = new File("tasks.xml");
        MainApp.saveTaskDataToFile(file);
@@ -205,6 +209,8 @@ public class MainApp1 {
        MainApp.loadTaskDataFromFile(file2);
        MainApp.compareTasksListToXMLFile();
        
+       File file3 = new File("tasks.xlsx");
+       MainApp.saveTaskDataToXLSX(file3);
        
     }
     
