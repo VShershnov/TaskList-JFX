@@ -41,7 +41,10 @@ public class RootLayoutController {
     private void handleNew() {
         mainApp.getTaskData().clear();
         mainApp.initTaskData();
-        mainApp.compareTasksListToXMLFile();
+        if (!mainApp.getTaskDataLoad().isEmpty()){
+          mainApp.compareTasksListToXMLFile();  
+        }
+        
     }
     
     /**
