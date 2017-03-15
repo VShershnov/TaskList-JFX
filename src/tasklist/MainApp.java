@@ -116,6 +116,13 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        // Пытается загрузить последний открытый файл с адресатами.
+        File file = getTaskFilePath();
+        if (file != null) {
+            loadTaskDataFromFile(file);
+            compareTasksListToXMLFile();
+        }
     }
 
     /**
@@ -300,6 +307,7 @@ public class MainApp extends Application {
 
             // Сохраняем путь к файлу в реестре.
             setTaskFilePath(file);
+            
         } catch (JAXBException e) { // catches ANY exception
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");

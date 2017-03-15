@@ -53,6 +53,9 @@ public class RootLayoutController {
      */
     @FXML
     private void handleOpen() {
+        
+        mainApp.getTaskFilePath();
+        
         FileChooser fileChooser = new FileChooser();
 
         // Задаём фильтр расширений
