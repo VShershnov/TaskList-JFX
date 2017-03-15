@@ -24,10 +24,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.charts.AxisCrosses;
 import org.apache.poi.ss.usermodel.charts.AxisPosition;
+import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.ss.usermodel.charts.ChartLegend;
 import org.apache.poi.ss.usermodel.charts.DataSources;
 import org.apache.poi.ss.usermodel.charts.LegendPosition;
+import org.apache.poi.ss.usermodel.charts.LineChartData;
 import org.apache.poi.ss.usermodel.charts.ScatterChartData;
 import org.apache.poi.ss.usermodel.charts.ValueAxis;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -77,31 +79,29 @@ public class ExcelWriterChart {
                 }
             
             
-        /*
-            Drawing drawing = sheet.createDrawingPatriarch();
-            ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 10, 15);
-            
-            Chart chart = drawing.createChart(anchor);
-            ChartLegend legend = chart.getOrCreateLegend();
-            legend.setPosition(LegendPosition.TOP_RIGHT);
-            
-            ScatterChartData data = chart.getChartDataFactory().createScatterChartData();
-            
-            ValueAxis bottomAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.BOTTOM);
-            ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
-            leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
-            
-            ChartDataSource<Number> xs = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
-            ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
-            ChartDataSource<Number> ys2 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(2, 2, 0, NUM_OF_COLUMNS - 1));
-            
-            
-            data.addSerie(xs, ys1);
-            data.addSerie(xs, ys2);
-            
-            chart.plot(data, bottomAxis, leftAxis);
-            
-        */
+        Drawing drawing = sheet.createDrawingPatriarch();
+        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 4, 1, 15, 25);
+
+        Chart chart = drawing.createChart(anchor);
+        ChartLegend legend = chart.getOrCreateLegend();
+        legend.setPosition(LegendPosition.TOP_RIGHT);
+
+        LineChartData data = chart.getChartDataFactory().createLineChartData();
+
+        // Use a category axis for the bottom axis.
+        ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
+        ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
+        leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
+
+        ChartDataSource<Number> xs = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1,taskData.size(), 0, 0));
+        ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, taskData.size(), 2, 2));
+        
+
+
+        data.addSeries(xs, ys1);
+        
+
+        chart.plot(data, bottomAxis, leftAxis);
             
             // Write the output to a file
             FileOutputStream fileOut;
