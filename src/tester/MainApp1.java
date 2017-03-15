@@ -10,18 +10,10 @@ import java.io.File;
 
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.prefs.Preferences;
-
-import javafx.fxml.FXMLLoader;
 import javafx.collections.*;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -94,12 +86,8 @@ public class MainApp1 {
             System.out.println("-----------------------TASKS FROM XML:------------------------");
             ObservableListToString (taskDataLoad);
             
-            
-            
-
         } catch (Exception e) { // catches ANY exception
             System.out.println("Could not load data from file: " + file.getPath());
-
         }
     }
     
@@ -159,11 +147,7 @@ public class MainApp1 {
         ObservableListToString(taskDataLoad);
     }
     
-    void TaskDataListCompare (List<Task1> taskData, List<Task1> taskDataLoad){
-        
-    }
     
-
     /**
     * Сохраняет текущую информацию об адресатах в указанном файле.
     * 
@@ -210,17 +194,10 @@ public class MainApp1 {
        MainApp.loadTaskDataFromFile(file2);
        MainApp.compareTasksListToXMLFile();
        
-       File file3 = new File("tasks2.xlsx");
-       MainApp.saveTaskDataToXLSX(file3);
+       //File file3 = new File("tasks2.xlsx");
+       //MainApp.saveTaskDataToXLSX(file3);
        
        
-       /*
-       Task1 tsk = new Task1 ("fdg", "55");
-       MainApp1 MainApp = new MainApp1();
-       File file = new File("tasks1.xml");
-       MainApp.saveTaskDataToFile(file);
-       Task1 tsk2 = new Task1 ();
-       */
 }
     
 }

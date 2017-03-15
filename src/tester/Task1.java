@@ -30,9 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 
-
 @XmlType(propOrder={"name", "memory"})
-//@XmlRootElement(name = "task1")
 public class Task1 {
     
     private  StringProperty name;
@@ -57,27 +55,20 @@ public class Task1 {
     
     public Task1(String name, String memory) {
         this.name = new SimpleStringProperty(name);
-        
         this.pID = new SimpleStringProperty();
-        this.pID = new SimpleStringProperty(memory);
-        // Какие-то фиктивные начальные данные для удобства тестирования.
+        
         if (memory != null) {
             this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
         }
         else this.memory = new SimpleIntegerProperty();
         
-        //this.memory = new SimpleIntegerProperty(99354);
     }
 
     public Task1(String name, int memory) {
         this.name = new SimpleStringProperty(name);
-        
         this.pID = new SimpleStringProperty();
-        //this.pID = new SimpleStringProperty(memory);
-        // Какие-то фиктивные начальные данные для удобства тестирования.
-        
         this.memory = new SimpleIntegerProperty(memory);
-        //this.memory = new SimpleIntegerProperty(99354);
+        
     }
     
     public Task1(String name, String pID, Integer memory ){
@@ -155,16 +146,9 @@ public class Task1 {
         return memory.get();
     }
     
-    
-    
     public void setMemory(Integer memory) {
         this.memory.set(memory);
     }
     
-    /*
-    public void setMemory(String memory) {
-        System.out.println(memory+" -----------------------set String Memory------------------------");
-        this.memory.set(Integer.valueOf(memory));
-    }
-     */
+    
 }
