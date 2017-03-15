@@ -13,8 +13,8 @@
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Import from XML" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Export to XML" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveXML" text="Export to XML" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveXLSX" text="Export to Excel Chart" />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>

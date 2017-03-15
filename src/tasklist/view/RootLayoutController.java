@@ -6,6 +6,7 @@
 package tasklist.view;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -71,12 +72,23 @@ public class RootLayoutController {
      * Если файл не открыт, то отображается диалог "save as".
      */
     @FXML
-    private void handleSave() {
-        File taskFile = mainApp.getTaskFilePath();
-        if (taskFile != null) {
-            mainApp.saveTaskDataToFile(taskFile);
-        } else {
-            handleSaveAs();
+    private void handleSaveXLSX() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+
+        // Задаём фильтр расширений
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "export to excel", ".xlsx");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Показываем диалог сохранения файла
+        File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+
+        if (file != null) {
+            // Make sure it has the correct extension
+            if (!file.getPath().endsWith(".xlsx")) {
+                file = new File(file.getPath() + ".xlsx");
+            }
+            mainApp.saveTaskDataToXlsxFile(file);
         }
     }
     
@@ -85,7 +97,7 @@ public class RootLayoutController {
      * выбрать файл, куда будут сохранены данные
      */
     @FXML
-    private void handleSaveAs() {
+    private void handleSaveXML() {
         FileChooser fileChooser = new FileChooser();
 
         // Задаём фильтр расширений

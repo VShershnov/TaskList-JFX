@@ -316,8 +316,10 @@ public class MainApp extends Application {
 
             alert.showAndWait();
         }
-        
-        
+    }
+    
+    public void saveTaskDataToXlsxFile (File file) throws IOException{
+        ExcelWriterChart excelWC = new ExcelWriterChart(taskData, file);
     }
     
     /**
