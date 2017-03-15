@@ -227,7 +227,7 @@ public class MainApp extends Application {
     }
 
     
-    void compareTasksListToXMLFile (){
+    public void compareTasksListToXMLFile(){
         List<Task> compariedTasksList = new ArrayList<Task>();
          
         //Опеределяем задачи отсутствовавшие текущем списке задач taskData

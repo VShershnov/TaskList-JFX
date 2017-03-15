@@ -32,27 +32,17 @@ public class TaskOverviewController {
     private Label tasksLabel;
     
     
-    
     @FXML
     private TableView<Task> taskFormFileTable;
     @FXML
     private TableColumn<Task, String> nameColumn1;
-    //@FXML
-    //private TableColumn<Task, String> pIDColumn1;
+    @FXML
+    private TableColumn<Task, String> diffColumn;
     @FXML
     private TableColumn<Task, Integer> memoryColumn1;
 
     @FXML
     private Label tasksFromFileLabel;
-    
-    
-    //@FXML
-    //private TableView<Task> compareTable;
-    @FXML
-    private TableColumn<Task, String> diffColumn;
-    
-    //@FXML
-    //private Label compareLabel;
     
     
     // Ссылка на главное приложение.
@@ -77,7 +67,7 @@ public class TaskOverviewController {
         memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
         
         nameColumn1.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        //pIDColumn1.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
+        diffColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn1.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
     }
     

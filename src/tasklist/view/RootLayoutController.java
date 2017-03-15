@@ -40,6 +40,7 @@ public class RootLayoutController {
     private void handleNew() {
         mainApp.getTaskData().clear();
         mainApp.initTaskData();
+        mainApp.compareTasksListToXMLFile();
     }
     
     /**
@@ -61,6 +62,8 @@ public class RootLayoutController {
         if (file != null) {
             mainApp.loadTaskDataFromFile(file);
         }
+        
+        mainApp.compareTasksListToXMLFile();
     }
 
     /**
