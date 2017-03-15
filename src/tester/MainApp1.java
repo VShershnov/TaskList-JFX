@@ -124,8 +124,9 @@ public class MainApp1 {
             //если взятая задача из текущего списка jncendetn в XML списке
             //добавляем пустую строку с занчением памяти в поле pID
             else {
-                compariedTasksList.add(new Task1(null,Integer.toString(tsk1.getMemory())));
-                System.out.println(Integer.toString(tsk1.getMemory()) + "---------------add empty string ");
+                Task1 tsk = new Task1(null,Integer.toString(tsk1.getMemory()),0); 
+                compariedTasksList.add(tsk);
+                System.out.println(tsk.toString() + " ---------------add empty string ");
             }
         }
         
@@ -135,7 +136,7 @@ public class MainApp1 {
         Iterator<Task1> it = tasksDiffNameList.iterator();
         while (it.hasNext()) {
             Task1 tsk2 = it.next();
-            compariedTasksList.add(new Task1(tsk2.getName(),Integer.toString(-(tsk2.getMemory()))));
+            compariedTasksList.add(new Task1(tsk2.getName(),Integer.toString(-(tsk2.getMemory())),tsk2.getMemory() ));
             System.out.println(Integer.toString(-tsk2.getMemory()) + "---------------add empty string ");
         }
         
