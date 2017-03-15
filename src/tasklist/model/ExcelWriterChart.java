@@ -77,7 +77,9 @@ public class ExcelWriterChart {
                 
                 rowIndex++;
                 }
-            
+         
+        //auto fit "Nmae" column
+        sheet.autoSizeColumn(0);
             
         Drawing drawing = sheet.createDrawingPatriarch();
         ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 4, 1, 15, 25);
@@ -96,8 +98,6 @@ public class ExcelWriterChart {
         ChartDataSource<Number> xs = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1,taskData.size(), 0, 0));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, taskData.size(), 2, 2));
         
-
-
         data.addSeries(xs, ys1);
         
 
