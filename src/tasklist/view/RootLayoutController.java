@@ -80,7 +80,7 @@ public class RootLayoutController {
 
         // Задаём фильтр расширений
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "export to excel", ".xlsx");
+                "export to excel", "*.xlsx");
         fileChooser.getExtensionFilters().add(extFilter);
 
         // Показываем диалог сохранения файла
