@@ -116,15 +116,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
-        /*
-        // Пытается загрузить последний открытый файл с задачами.
-        File file = getTaskFilePath();
-        if (file != null) {
-            loadTaskDataFromFile(file);
-        }
-        */
     }
 
     /**
@@ -261,8 +252,9 @@ public class MainApp extends Application {
             //если взятая задача из текущего списка jncendetn в XML списке
             //добавляем пустую строку с занчением памяти в поле pID
             else {
-                compariedTasksList.add(new Task(null,Integer.toString(tsk1.getMemory())));
-                System.out.println(Integer.toString(tsk1.getMemory()) + "---------------add empty string ");
+                Task tsk = new Task(null,Integer.toString(tsk1.getMemory()),0); 
+                compariedTasksList.add(tsk);
+                System.out.println(tsk.toString() + " ---------------add empty string ");
             }
         }
           
@@ -272,7 +264,7 @@ public class MainApp extends Application {
         Iterator<Task> it = tasksDiffNameList.iterator();
         while (it.hasNext()) {
             Task tsk2 = it.next();
-            compariedTasksList.add(new Task(tsk2.getName(),Integer.toString(-(tsk2.getMemory()))));
+            compariedTasksList.add(new Task(tsk2.getName(),Integer.toString(-(tsk2.getMemory())),tsk2.getMemory() ));
             System.out.println(Integer.toString(-tsk2.getMemory()) + "---------------add empty string ");
         }
           

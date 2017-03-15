@@ -23,8 +23,7 @@ public class TaskListWrapper {
     private List<Task> tasks;
 
    @XmlElements({ @XmlElement(name = "task", type = Task.class) })
-   //@XmlElement(name = "task", type = Task.class)
-    public List<Task> getTasks() {
+   public List<Task> getTasks() {
         return tasks;
     }
 

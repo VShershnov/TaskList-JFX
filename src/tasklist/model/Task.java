@@ -47,27 +47,25 @@ public class Task {
      * Конструктор с некоторыми начальными данными.
      * 
      * @param name
-     * @param pID
+     * @param memory
      */
     public Task(String name, String memory) {
         this.name = new SimpleStringProperty(name);
+        this.pID = new SimpleStringProperty();
         
-        this.pID = new SimpleStringProperty(memory);
-        //this.pID = new SimpleStringProperty(memory);
-        // Какие-то фиктивные начальные данные для удобства тестирования.
-        
-        //this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
-        this.memory = new SimpleIntegerProperty(999931);
+        if (memory != null) {
+             this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
+        }
+        else this.memory = new SimpleIntegerProperty();
     }
     
     public Task(String name, int memory) {
         this.name = new SimpleStringProperty(name);
         this.memory = new SimpleIntegerProperty(memory);
-        // Какие-то фиктивные начальные данные для удобства тестирования.
-        this.pID = new SimpleStringProperty("");
+        this.pID = new SimpleStringProperty();
     }
     
-    public Task(String name, String pID, int memory ){
+    public Task(String name, String pID, Integer memory ){
         this.name = new SimpleStringProperty(name);
         this.pID = new SimpleStringProperty(pID);
         this.memory = new SimpleIntegerProperty(memory);
@@ -138,12 +136,13 @@ public class Task {
     }
 
     @XmlElement (name = "memory")
-    public int getMemory() {
+    public Integer getMemory() {
         return memory.get();
     }
     
     public void setMemory(Integer memory) {
         this.memory.set(Integer.valueOf(memory));
     }
-      
+    
+         
 }
