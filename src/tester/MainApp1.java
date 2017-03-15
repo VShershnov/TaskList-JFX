@@ -104,13 +104,57 @@ public class MainApp1 {
     }
     
     void compareTasksListToXMLFile (){
+        List<Task1> compariedTasksList = new ArrayList<Task1>();
+        
+        //Опеределяем задачи отсутствовавшие текущем списке задач taskData
         List<Task1> tasksDiffNameList = new ArrayList<Task1>(taskDataLoad);
         tasksDiffNameList.removeAll(taskData);
-        System.out.println("-----------------------TASKS DIFFER FROM TASKLIST:------------------------\n");
+        System.out.println("\n-----------------------TASKS DIFFER FROM TASKLIST:------------------------");
         ObservableListToString(tasksDiffNameList);
         
+        //Перебираем текущий список задач
+        Iterator<Task1> itTD = taskData.iterator();
+        while (itTD.hasNext()) {
+            Task1 tsk1 = itTD.next();
+            
+            //если взятая задача из текущего списка существует в XML списке
+            //в список сравнительного списка задач добвляем ее с разницей памяти в поле pID
+            if (taskDataLoad.contains(tsk1)){
+                Iterator<Task1> itTDL = taskDataLoad.iterator();
+                while (itTDL.hasNext()) {
+                    Task1 tsk2 = itTDL.next();
+                    
+                    //при совпадении с именем задачи из XML списка условие соответвия
+                    //в список сравнительного списка задач добвляем ее с разницей памяти в поле pID
+                    if (tsk2.equals(tsk1)){
+                        compariedTasksList.add(new Task1(tsk2.getName(),Integer.toString(tsk1.getMemory()-tsk2.getMemory()), tsk2.getMemory()));
+                        break;
+                    }
+                }
+            }
+            
+            //если взятая задача из текущего списка jncendetn в XML списке
+            //добавляем пустую строку с занчением памяти в поле pID
+            else {
+                compariedTasksList.add(new Task1(null,Integer.toString(tsk1.getMemory())));
+                System.out.println(Integer.toString(tsk1.getMemory()) + "---------------add empty string ");
+            }
+        }
         
+        //в сравнительный список задач
+        //добавляем задачи отсутствовавшие в текущем списке задач taskData
+        System.out.println("\n ---------------add tasksDiffNameList to  compariedTasksList ");
+        Iterator<Task1> it = tasksDiffNameList.iterator();
+        while (it.hasNext()) {
+            Task1 tsk2 = it.next();
+            compariedTasksList.add(new Task1(tsk2.getName(),Integer.toString(-(tsk2.getMemory()))));
+            System.out.println(Integer.toString(-tsk2.getMemory()) + "---------------add empty string ");
+        }
         
+        //Передаем XML списку сравнительный список задач
+        System.out.println("\n ---------------CLEAR and ADD compariedTasksList to taskDataLoad");
+        taskDataLoad.clear();
+        taskDataLoad.addAll(compariedTasksList);
         System.out.println("-----------------------TASKS FROM XML:------------------------\n");
         ObservableListToString(taskDataLoad);
     }

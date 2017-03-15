@@ -58,7 +58,7 @@ public class Task1 {
     public Task1(String name, String memory) {
         this.name = new SimpleStringProperty(name);
         
-        this.pID = new SimpleStringProperty("");
+        this.pID = new SimpleStringProperty(memory);
         //this.pID = new SimpleStringProperty(memory);
         // Какие-то фиктивные начальные данные для удобства тестирования.
         
