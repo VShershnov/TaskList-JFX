@@ -58,28 +58,35 @@ public class Task1 {
     public Task1(String name, String memory) {
         this.name = new SimpleStringProperty(name);
         
+        this.pID = new SimpleStringProperty();
         this.pID = new SimpleStringProperty(memory);
+        // Какие-то фиктивные начальные данные для удобства тестирования.
+        if (memory != null) {
+            this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
+        }
+        else this.memory = new SimpleIntegerProperty();
+        
+        //this.memory = new SimpleIntegerProperty(99354);
+    }
+
+    public Task1(String name, int memory) {
+        this.name = new SimpleStringProperty(name);
+        
+        this.pID = new SimpleStringProperty();
         //this.pID = new SimpleStringProperty(memory);
         // Какие-то фиктивные начальные данные для удобства тестирования.
         
-        //this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
-        this.memory = new SimpleIntegerProperty(999931);
+        this.memory = new SimpleIntegerProperty(memory);
+        //this.memory = new SimpleIntegerProperty(99354);
     }
-
-    public Task1(String name, String pID, int memory ){
+    
+    public Task1(String name, String pID, Integer memory ){
         this.name = new SimpleStringProperty(name);
         this.pID = new SimpleStringProperty(pID);
         this.memory = new SimpleIntegerProperty(memory);
     }
     
-    /*
-    @XmlElement (name = "task1")
-    public Task1 getTask1(String name, String memory) {
-        Task1 t = new Task1(name, memory);
-        return t;
-    }
-    */
-
+    
     @Override
     public String toString() {
         return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
@@ -144,14 +151,20 @@ public class Task1 {
     }
 
     @XmlElement (name = "memory")
-    public int getMemory() {
+    public Integer getMemory() {
         return memory.get();
     }
+    
+    
     
     public void setMemory(Integer memory) {
         this.memory.set(memory);
     }
     
-    
-      
+    /*
+    public void setMemory(String memory) {
+        System.out.println(memory+" -----------------------set String Memory------------------------");
+        this.memory.set(Integer.valueOf(memory));
+    }
+     */
 }

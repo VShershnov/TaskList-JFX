@@ -202,6 +202,7 @@ public class MainApp1 {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
+       
        MainApp1 MainApp = new MainApp1();
        File file = new File("tasks.xml");
        MainApp.saveTaskDataToFile(file);
@@ -209,9 +210,17 @@ public class MainApp1 {
        MainApp.loadTaskDataFromFile(file2);
        MainApp.compareTasksListToXMLFile();
        
-       File file3 = new File("tasks.xlsx");
+       File file3 = new File("tasks2.xlsx");
        MainApp.saveTaskDataToXLSX(file3);
        
-    }
+       
+       /*
+       Task1 tsk = new Task1 ("fdg", "55");
+       MainApp1 MainApp = new MainApp1();
+       File file = new File("tasks1.xml");
+       MainApp.saveTaskDataToFile(file);
+       Task1 tsk2 = new Task1 ();
+       */
+}
     
 }
