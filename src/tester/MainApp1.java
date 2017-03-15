@@ -11,6 +11,7 @@ import java.io.File;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -66,6 +67,10 @@ public class MainApp1 {
     public ObservableList<Task1> getTaskData() {
         return taskData;
     }
+    
+    public ObservableList<Task1> getTaskDataLoad() {
+        return taskDataLoad;
+    }
 
     
     /**
@@ -96,6 +101,18 @@ public class MainApp1 {
             System.out.println("Could not load data from file: " + file.getPath());
 
         }
+    }
+    
+    void compareTasksListToXMLFile (){
+        List<Task1> tasksDiffNameList = new ArrayList<Task1>(taskDataLoad);
+        tasksDiffNameList.removeAll(taskData);
+        System.out.println("-----------------------TASKS DIFFER FROM TASKLIST:------------------------\n");
+        ObservableListToString(tasksDiffNameList);
+        
+        
+        
+        System.out.println("-----------------------TASKS FROM XML:------------------------\n");
+        ObservableListToString(taskDataLoad);
     }
     
     void TaskDataListCompare (List<Task1> taskData, List<Task1> taskDataLoad){
@@ -140,8 +157,9 @@ public class MainApp1 {
        MainApp1 MainApp = new MainApp1();
        File file = new File("tasks.xml");
        MainApp.saveTaskDataToFile(file);
-       
-       MainApp.loadTaskDataFromFile(file);
+       File file2 = new File("tasks3.xml");
+       MainApp.loadTaskDataFromFile(file2);
+       MainApp.compareTasksListToXMLFile();
        
        
     }

@@ -130,7 +130,6 @@ public class TaskListReader1 {
                 System.out.println(itg.next().toString());  
             }
         
-        //groupedTasksList.sort(Comparator.comparing((task1) -> task1.getMemory()));
         groupedTasksList.sort((o1, o2) -> o2.getMemory()-o1.getMemory());
         
         Iterator<Task1> itg2 = groupedTasksList.iterator();
