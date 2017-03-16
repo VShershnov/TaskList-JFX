@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 
 /**
- * Класс-модель для адресата (Task).
+ * Class-model for Task.
  * 
  */
 
@@ -37,14 +37,15 @@ public class Task {
     
 
     /**
-     * Конструктор по умолчанию.
+     * default constructor
      */
     public Task() {
         this(null, null);
     }
     
     /**
-     * Конструктор с некоторыми начальными данными.
+     * constructor with initial data
+     * also used by unmarshaller
      * 
      * @param name
      * @param memory
@@ -53,6 +54,8 @@ public class Task {
         this.name = new SimpleStringProperty(name);
         this.pID = new SimpleStringProperty();
         
+        //if constructor used by unmarshaller memory param is null and can't be convert by Integer.valueOf
+        //at that case set memory empty value  
         if (memory != null) {
              this.memory = new SimpleIntegerProperty(Integer.valueOf(memory));
         }
@@ -75,14 +78,16 @@ public class Task {
     public String toString() {
         return "Task{" + "name=" + name + ", pID=" + pID + ", memory=" + memory + '}';
     }
-
+    
+    //Override method for compare Tasks obj by name field
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 89 * hash + Objects.hashCode(this.name.get());
         return hash;
     }
-
+    
+    //Override method for compare Tasks obj by name field
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -102,12 +107,11 @@ public class Task {
     }
     
     
-    
-    
     public StringProperty nameProperty() {
         return name;
     }
-
+    
+    //XML annotation
     @XmlElement (name = "name")
     public String getName() {
         return name.get();
@@ -130,11 +134,11 @@ public class Task {
         this.pID.set(pID);
     }
     
-    
     public IntegerProperty memoryProperty() {
         return memory;
     }
-
+    
+    //XML annotation
     @XmlElement (name = "memory")
     public Integer getMemory() {
         return memory.get();

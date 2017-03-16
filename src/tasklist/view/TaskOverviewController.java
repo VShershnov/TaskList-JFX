@@ -6,8 +6,6 @@
 package tasklist.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +13,7 @@ import tasklist.MainApp;
 import tasklist.model.Task;
 /**
  *
- * @author user
+ * @author vshershnyov
  */
 public class TaskOverviewController {
     
@@ -45,42 +43,42 @@ public class TaskOverviewController {
     private Label tasksFromFileLabel;
     
     
-    // Ссылка на главное приложение.
+    // Link to MainApp.
     private MainApp mainApp;
 
     /**
-     * Конструктор.
-     * Конструктор вызывается раньше метода initialize().
+     * Constructor.
+     * Called before method initialize().
      */
     public TaskOverviewController() {
     }
     
     /**
-     * Инициализация класса-контроллера. Этот метод вызывается автоматически
-     * после того, как fxml-файл будет загружен.
+     * Init class-controller. Called automatically
+     * after fxml-file loaded .
      */
     @FXML
     private void initialize() {
-        // Инициализация таблицы задач с тремя столбцами.
+        // Init TasksList Table with 3 column.
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         pIDColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
         
+        // Init Tasks loaded from XML with 3 column.
         nameColumn1.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         diffColumn.setCellValueFactory(cellData -> cellData.getValue().pIDProperty());
         memoryColumn1.setCellValueFactory(cellData -> cellData.getValue().memoryProperty().asObject());
     }
     
-    
     /**
-     * Вызывается главным приложением, которое даёт на себя ссылку.
+     * Called by MainApp and give link to itself.
      * 
      * @param mainApp
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     
-    // Добавление в таблицу данных из наблюдаемого списка
+    // Add Tasks data to Table from ObservedList
         taskTable.setItems(mainApp.getTaskData());
         taskFormFileTable.setItems(mainApp.getTaskDataLoad());
         

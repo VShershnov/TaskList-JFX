@@ -13,8 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
- * Вспомогательный класс для обёртывания списка адресатов.
- * Используется для сохранения списка адресатов в XML.
+ * Auxiliary class for wrapp Tasks List.
+ * ObservedList can't be marshaller to XML dirrectly
+ * Used for seve Tasks List to XML
  * 
  * @author vshersnov
  */

@@ -21,7 +21,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -38,33 +37,34 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    /**
-     * Данные, в виде наблюдаемого списка tasks.
-     */
+    //Data in view of Observable List tasks.
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
     private ObservableList<Task> taskDataLoad = FXCollections.observableArrayList();
     
-    /**
-     * Конструктор
-     */
+    //Constructor, initialize tasklist.exe 
     public MainApp() {
         initTaskData();
     }
     
-    /**
-     * Возвращает данные в виде наблюдаемого списка задач.
-     * @return
+    
+    /* 
+    * Return tasklist.exe data as ObservableList of Tasks
+    * @return taskData
      */
     public ObservableList<Task> getTaskData() {
         return taskData;
     }
     
+    /* 
+    * Return data loaded from xml as ObservableList of Tasks
+    * @return taskDataLoad
+     */
     public ObservableList<Task> getTaskDataLoad() {
         return taskDataLoad;
     }
     
     /**
-     * Инициализирует данные в виде наблюдаемого списка задач.
+     * Initialize data from tasklist.exe to ObservableList of Tasks
      */
     public void initTaskData() {
         TaskListReader tskRdr = new TaskListReader();
@@ -88,27 +88,25 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("TaskListApp");
 
         initRootLayout();
-
         showTaskOverview();
     }
     
     /**
-     * Инициализирует корневой макет 
-     * ????? и пытается загрузить последний открытый
-     * файл с задачами.
+     * Initialize Root Layout 
+     * and try to open last opened xml file with Tasks
      */
     public void initRootLayout() {
         try {
-            // Загружаем корневой макет из fxml файла.
+            // Load Root Layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
-            // Отображаем сцену, содержащую корневой макет.
+            // Show scene, that containe Root Layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             
-            // Даём контроллеру доступ к главному прилодению.
+            // give controller permit to MainApp.
             RootLayoutController controller = loader.getController();
             controller.setMainApp(this);
             
@@ -117,7 +115,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
         
-        // Пытается загрузить последний открытый файл с адресатами.
+        // Try to open last opened xml file with Tasks.
         File file = getTaskFilePath();
         if (file != null) {
             loadTaskDataFromFile(file);
@@ -126,19 +124,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Показывает в корневом макете сведения об адресатах.
+     * Show in Root Layout Tasks info 
      */
     public void showTaskOverview() {
         try {
-            // Загружаем сведения о задачах.
+            // Load Tasks info.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/TaskOverview.fxml"));
             AnchorPane taskListOverview = (AnchorPane) loader.load();
 
-            // Помещаем сведения о задачах в центр корневого макета.
+            // Set Tasks info to center of Root Layout.
             rootLayout.setCenter(taskListOverview);
             
-            // Даём контроллеру доступ к главному приложению.
+            // give controller permit to MainApp.
             TaskOverviewController controller = loader.getController();
             controller.setMainApp(this);
 
@@ -148,17 +146,17 @@ public class MainApp extends Application {
     }
 
     /**
-     * Возвращает главную сцену.
-     * @return
+     * Return Primary Stage.
+     * @return primaryStage
      */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
     
      /**
-     * Возвращает preference файла задач, то есть, последний открытый файл.
-     * Этот preference считывается из реестра, специфичного для конкретной
-     * операционной системы. Если preference не был найден, то возвращается null.
+     * Return preference Tasks file - last opened file.
+     * This preference read from register, specific for current OS.
+     * If preference wasn't find - return null.
      * 
      * @return
      */
@@ -173,29 +171,28 @@ public class MainApp extends Application {
     }
     
     /**
- * Задаёт путь текущему загруженному файлу. Этот путь сохраняется
- * в реестре, специфичном для конкретной операционной системы.
+ * Set path to loaded file. This [ath saved in register, specific for current OS.
  * 
- * @param file - файл или null, чтобы удалить путь
+ * @param file - file or null, to del path
  */
     public void setTaskFilePath(File file) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         if (file != null) {
             prefs.put("filePath", file.getPath());
 
-            // Обновление заглавия сцены.
+            // update Stage Title.
             primaryStage.setTitle("TaskListApp - " + file.getName());
         } else {
             prefs.remove("filePath");
 
-            // Обновление заглавия сцены.
+            // update Stage Title.
             primaryStage.setTitle("TaskListApp");
         }
     }
     
     /**
-    * Загружает информацию об адресатах из указанного файла.
-    * Текущая информация об адресатах будет заменена.
+    * Load Tasks info from file.
+    * Current Tasks info would be replaced.
     * 
     * @param file
     */
@@ -205,13 +202,13 @@ public class MainApp extends Application {
                     .newInstance(TaskListWrapper.class);
             Unmarshaller um = context.createUnmarshaller();
 
-            // Чтение XML из файла и демаршализация.
+            // Read XML from file and unmarshalling.
             TaskListWrapper wrapper = (TaskListWrapper) um.unmarshal(file);
 
             taskDataLoad.clear();
             taskDataLoad.addAll(wrapper.getTasks());
 
-            // Сохраняем путь к файлу в реестре.
+            // Save path to file in reg.
             setTaskFilePath(file);
 
         } catch (Exception e) { // catches ANY exception
@@ -228,27 +225,27 @@ public class MainApp extends Application {
     public void compareTasksListToXMLFile(){
         List<Task> compariedTasksList = new ArrayList<Task>();
          
-        //Опеределяем задачи отсутствовавшие текущем списке задач taskData
+        //Choose Tasks missing in the current TasksList taskData
         List<Task> tasksDiffNameList = new ArrayList<Task>(taskDataLoad);
         tasksDiffNameList.removeAll(taskData);
 
         System.out.println("\n-----------------------TASKS DIFFER FROM TASKLIST:------------------------");
         ObservableListToString(tasksDiffNameList);
           
-        //Перебираем текущий список задач
+        //iterate current TasksList
         Iterator<Task> itTD = taskData.iterator();
         while (itTD.hasNext()) {
             Task tsk1 = itTD.next();
              
-            //если взятая задача из текущего списка существует в XML списке
-            //в список сравнительного списка задач добвляем ее с разницей памяти в поле pID
+            //if taken task from current TasksList exist in XML list
+            //add it to compare list with diff of memory at pID
             if (taskDataLoad.contains(tsk1)){
                 Iterator<Task> itTDL = taskDataLoad.iterator();
                 while (itTDL.hasNext()) {
                     Task tsk2 = itTDL.next();
                      
-                    //при совпадении с именем задачи из XML списка условие соответвия
-                    //в список сравнительного списка задач добвляем ее с разницей памяти в поле pID
+                    //if taken task name equal XML list task name 
+                    //add it to compare list with diff of memory at pID field
                     if (tsk2.equals(tsk1)){
                         compariedTasksList.add(new Task(tsk2.getName(),Integer.toString(tsk1.getMemory()-tsk2.getMemory()), tsk2.getMemory()));
                         break;
@@ -256,8 +253,8 @@ public class MainApp extends Application {
                 }
             }
              
-            //если взятая задача из текущего списка jncendetn в XML списке
-            //добавляем пустую строку с занчением памяти в поле pID
+            //if taken task from current TasksList missing in XML list
+            //add empty string with memory at pID field
             else {
                 Task tsk = new Task(null,Integer.toString(tsk1.getMemory()),0); 
                 compariedTasksList.add(tsk);
@@ -265,8 +262,7 @@ public class MainApp extends Application {
             }
         }
           
-        //в сравнительный список задач
-        //добавляем задачи отсутствовавшие в текущем списке задач taskData
+        //to compare TasksLst add tasks missing in current TasksList taskData
         System.out.println("\n ---------------add tasksDiffNameList to  compariedTasksList ");
         Iterator<Task> it = tasksDiffNameList.iterator();
         while (it.hasNext()) {
@@ -275,7 +271,7 @@ public class MainApp extends Application {
             System.out.println(Integer.toString(-tsk2.getMemory()) + "---------------add empty string ");
         }
           
-        //Передаем XML списку сравнительный список задач
+        //send to XML list compare TasksLst
         System.out.println("\n ---------------CLEAR and ADD compariedTasksList to taskDataLoad");
         taskDataLoad.clear();
         taskDataLoad.addAll(compariedTasksList);
@@ -286,7 +282,7 @@ public class MainApp extends Application {
 
     
     /**
-    * Сохраняет текущую информацию об адресатах в указанном файле.
+    * Save current configuration of TasksList to file.
     * 
     * @param file
     */
@@ -297,15 +293,15 @@ public class MainApp extends Application {
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
-            // Обёртываем наши данные об адресатах.
+            // Wrapp Task data.
             TaskListWrapper wrapper = new TaskListWrapper();
             wrapper.setTasks(taskData);
          
-            // Маршаллируем и сохраняем XML в файл.
+            // Marshalling and save to XML file.
             m.marshal(wrapper, System.out);
             m.marshal(wrapper, file);
 
-            // Сохраняем путь к файлу в реестре.
+            // Save path to file in reg.
             setTaskFilePath(file);
             
         } catch (JAXBException e) { // catches ANY exception

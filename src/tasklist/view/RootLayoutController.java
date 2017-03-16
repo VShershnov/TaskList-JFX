@@ -15,18 +15,18 @@ import javafx.stage.FileChooser;
 import tasklist.MainApp;
 
 /**
- * Контроллер для корневого макета. Корневой макет предоставляет базовый
- * макет приложения, содержащий строку меню и место, где будут размещены
- * остальные элементы JavaFX.
+ * Controller for Root Layout. 
+ * Root Layout is a base App Layout, contain Menu string 
+ * and place for other JavaFX elements.
  * 
  * @author vshershnov
  */
 public class RootLayoutController {
-    // Ссылка на главное приложение
+    // link to MainApp
     private MainApp mainApp;
 
     /**
-     * Вызывается главным приложением, чтобы оставить ссылку на самого себя.
+     * Called by MainApp for give link to itself
      * 
      * @param mainApp
      */
@@ -35,7 +35,7 @@ public class RootLayoutController {
     }
     
     /**
-     * Создаёт новый список задач.
+     * Create new Task List from tasklist.exe
      */
     @FXML
     private void handleNew() {
@@ -48,8 +48,7 @@ public class RootLayoutController {
     }
     
     /**
-     * Открывает FileChooser, чтобы пользователь имел возможность
-     * выбрать адресную книгу для загрузки.
+     * Open FileChooser, for user choose Tasklist file for load.
      */
     @FXML
     private void handleOpen() {
@@ -58,35 +57,36 @@ public class RootLayoutController {
         
         FileChooser fileChooser = new FileChooser();
 
-        // Задаём фильтр расширений
+        // Set file Extension Filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Показываем диалог загрузки файла
+        // Show file load dialog
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
             mainApp.loadTaskDataFromFile(file);
         }
         
+        //compute diff between current TasksList and loaded file 
         mainApp.compareTasksListToXMLFile();
     }
 
     /**
-     * Сохраняет файл в файл адресатов, который в настоящее время открыт.
-     * Если файл не открыт, то отображается диалог "save as".
+     * Save TasksList to Excel 2007 or later (.xlsx)
+     * and build chart.
      */
     @FXML
     private void handleSaveXLSX() throws IOException {
         FileChooser fileChooser = new FileChooser();
 
-        // Задаём фильтр расширений
+        // Set file Extension Filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "export to excel", "*.xlsx");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Показываем диалог сохранения файла
+        // Show Save file dialog
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
@@ -94,24 +94,24 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xlsx")) {
                 file = new File(file.getPath() + ".xlsx");
             }
+            
             mainApp.saveTaskDataToXlsxFile(file);
         }
     }
     
     /**
-     * Открывает FileChooser, чтобы пользователь имел возможность
-     * выбрать файл, куда будут сохранены данные
+     * Save TasksList to XML file
      */
     @FXML
     private void handleSaveXML() {
         FileChooser fileChooser = new FileChooser();
 
-        // Задаём фильтр расширений
+        // Set file Extension Filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
 
-        // Показываем диалог сохранения файла
+        // Show Save file dialog
         File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
@@ -119,12 +119,14 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
-            mainApp.saveTaskDataToFile(file);
+        
+        //Save TasksList to XML file
+        mainApp.saveTaskDataToFile(file);
         }
     }
     
     /**
-     * Открывает диалоговое окно about.
+     * Open dialog window About.
      */
     @FXML
     private void handleAbout() {
@@ -137,7 +139,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Закрывает приложение.
+     * Close App.
      */
     @FXML
     private void handleExit() {

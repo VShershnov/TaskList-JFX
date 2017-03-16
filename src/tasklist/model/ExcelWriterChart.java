@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static org.apache.poi.hssf.usermodel.HeaderFooter.file;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Chart;
@@ -30,7 +29,6 @@ import org.apache.poi.ss.usermodel.charts.ChartLegend;
 import org.apache.poi.ss.usermodel.charts.DataSources;
 import org.apache.poi.ss.usermodel.charts.LegendPosition;
 import org.apache.poi.ss.usermodel.charts.LineChartData;
-import org.apache.poi.ss.usermodel.charts.ScatterChartData;
 import org.apache.poi.ss.usermodel.charts.ValueAxis;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
