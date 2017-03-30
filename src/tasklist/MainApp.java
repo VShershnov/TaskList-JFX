@@ -69,9 +69,9 @@ public class MainApp extends Application {
     public void initTaskData() {
         TaskListReader tskRdr = new TaskListReader();
         List<Task> taskList = tskRdr.getGroupedTaskList();
-        Iterator<Task> itg = taskList.iterator();
-        while (itg.hasNext()) {
-                taskData.add(itg.next());
+        
+        for (Task taskL : taskList ){
+            taskData.add(taskL);
         }
     }
     
