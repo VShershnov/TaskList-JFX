@@ -25,14 +25,13 @@ class TasksList {
         //choose memory unit depends of Locale:
         int unitLength;
         Locale locale = Locale.getDefault();
-            if (locale.getLanguage().equals("ru")){
+            if (locale.getLanguage()=="ru"){
                 unitLength = 0;
             } else unitLength = 1;
         
-        Iterator<String> it = tasksStrList.iterator();
-        while (it.hasNext()) {
+        for (String taskStrL : tasksStrList ){
             // use comma as separator
-            String[] taskSplit = it.next().split("\",\"");
+            String[] taskSplit = taskStrL.split("\",\"");
                 
             //remove specific symbol
             //  "[^\\w\\s]",""      "[-+.^:,]",""
@@ -57,23 +56,19 @@ class TasksList {
     public List<Task> getGroupedByMem (){
         List<Task> groupedTasksList = new ArrayList<Task>();
         
-        Iterator<Task> it1 = tasksList.iterator();
-        
-        while (it1.hasNext()) {
-            Task tsk1 = it1.next();
-            if (groupedTasksList.contains(tsk1)){
-                Iterator<Task> it2 = groupedTasksList.iterator();
-                while (it2.hasNext()) {
-                    Task tsk2 = it2.next();
-                    if (tsk2.equals(tsk1)){
-                        tsk2.setMemory(tsk1.getMemory()+tsk2.getMemory());
+        for (Task grTaskL1 : tasksList ){
+            if (groupedTasksList.contains(grTaskL1)){
+                
+                for (Task grTaskL2 : groupedTasksList ){
+                    if (grTaskL2.equals(grTaskL1)){
+                        grTaskL2.setMemory(grTaskL1.getMemory()+grTaskL2.getMemory());
                         break;
                     }
                 }
             }
             else {
-                groupedTasksList.add(tsk1);
-                System.out.println(tsk1.toString() + " --------added");
+                groupedTasksList.add(grTaskL1);
+                System.out.println(grTaskL1.toString() + " --------added");
             }
         }
     return groupedTasksList;
@@ -123,18 +118,17 @@ public class TaskListReader {
         TasksList tasks = new TasksList(bundle);
         groupedTasksList = tasks.getGroupedByMem();
         
-        Iterator<Task> itg = groupedTasksList.iterator();
         System.out.println("-----------------------Grouped Tasks by Memory:------------------------");
-            while (itg.hasNext()) {
-                System.out.println(itg.next().toString());  
+            for (Task grTaskL : groupedTasksList ){
+                System.out.println(grTaskL.toString());  
             }
     
         groupedTasksList.sort((o1, o2) -> o2.getMemory()-o1.getMemory());
         
         Iterator<Task> itg2 = groupedTasksList.iterator();
         System.out.println("-----------------------Sorted Tasks by Memory:------------------------");
-            while (itg2.hasNext()) {
-                System.out.println(itg2.next().toString());  
+            for (Task grTaskL : groupedTasksList ){
+                System.out.println(grTaskL.toString());  
             }
     }
     
