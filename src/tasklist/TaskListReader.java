@@ -25,7 +25,7 @@ class TasksList {
         //choose memory unit depends of Locale:
         int unitLength;
         Locale locale = Locale.getDefault();
-            if (locale.getLanguage()=="ru"){
+            if (locale.getLanguage().equals("ru")){
                 unitLength = 0;
             } else unitLength = 1;
         
