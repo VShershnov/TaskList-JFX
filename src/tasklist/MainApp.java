@@ -69,16 +69,14 @@ public class MainApp extends Application {
     public void initTaskData() {
         TaskListReader tskRdr = new TaskListReader();
         List<Task> taskList = tskRdr.getGroupedTaskList();
-        Iterator<Task> itg = taskList.iterator();
-        while (itg.hasNext()) {
-                taskData.add(itg.next());
+        for (Task taskL : taskList ){
+            taskData.add(taskL);
         }
     }
     
-    void ObservableListToString(List taskData){
-        Iterator<Task> itg = taskData.iterator();
-            while (itg.hasNext()) {
-                System.out.println(itg.next().toString());  
+    void ObservableListToString(List<Task> taskData){
+        for (Task taskD : taskData ){
+                System.out.println(taskD.toString());  
             }
     }
     
@@ -232,21 +230,17 @@ public class MainApp extends Application {
         ObservableListToString(tasksDiffNameList);
           
         //iterate current TasksList
-        Iterator<Task> itTD = taskData.iterator();
-        while (itTD.hasNext()) {
-            Task tsk1 = itTD.next();
+        for (Task taskD : taskData ){
              
             //if taken task from current TasksList exist in XML list
             //add it to compare list with diff of memory at pID
-            if (taskDataLoad.contains(tsk1)){
-                Iterator<Task> itTDL = taskDataLoad.iterator();
-                while (itTDL.hasNext()) {
-                    Task tsk2 = itTDL.next();
-                     
+            if (taskDataLoad.contains(taskD)){
+                for (Task taskDL : taskDataLoad ){
+                
                     //if taken task name equal XML list task name 
                     //add it to compare list with diff of memory at pID field
-                    if (tsk2.equals(tsk1)){
-                        compariedTasksList.add(new Task(tsk2.getName(),Integer.toString(tsk1.getMemory()-tsk2.getMemory()), tsk2.getMemory()));
+                    if (taskDL.equals(taskD)){
+                        compariedTasksList.add(new Task(taskDL.getName(),Integer.toString(taskD.getMemory()-taskDL.getMemory()), taskDL.getMemory()));
                         break;
                     }
                 }
@@ -255,7 +249,7 @@ public class MainApp extends Application {
             //if taken task from current TasksList missing in XML list
             //add empty string with memory at pID field
             else {
-                Task tsk = new Task(null,Integer.toString(tsk1.getMemory()),0); 
+                Task tsk = new Task(null,Integer.toString(taskD.getMemory()),0); 
                 compariedTasksList.add(tsk);
                 System.out.println(tsk.toString() + " ---------------add empty string ");
             }
@@ -263,11 +257,9 @@ public class MainApp extends Application {
           
         //to compare TasksLst add tasks missing in current TasksList taskData
         System.out.println("\n ---------------add tasksDiffNameList to  compariedTasksList ");
-        Iterator<Task> it = tasksDiffNameList.iterator();
-        while (it.hasNext()) {
-            Task tsk2 = it.next();
-            compariedTasksList.add(new Task(tsk2.getName(),Integer.toString(-(tsk2.getMemory())),tsk2.getMemory() ));
-            System.out.println(Integer.toString(-tsk2.getMemory()) + "---------------add empty string ");
+        for (Task taskDiffNL : tasksDiffNameList ){
+            compariedTasksList.add(new Task(taskDiffNL.getName(),Integer.toString(-(taskDiffNL.getMemory())),taskDiffNL.getMemory() ));
+            System.out.println(Integer.toString(-taskDiffNL.getMemory()) + "---------------add empty string ");
         }
           
         //send to XML list compare TasksLst

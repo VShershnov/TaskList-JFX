@@ -57,21 +57,19 @@ public class ExcelWriterChart {
             cell.setCellValue("Memory");
             
             // Create a row and put some cells in it. Rows are 0 based.
-            Iterator<Task> it = taskData.iterator();
             int rowIndex = 1;
-            while (it.hasNext()) {
-                Task tsk1 = it.next();
-                
+            for (Task taskD : taskData ){
+              
                 row = sheet.createRow((short) rowIndex);
                 
                 cell = row.createCell(0);
-                cell.setCellValue(tsk1.getName());
+                cell.setCellValue(taskD.getName());
                 
                 cell = row.createCell(1);
-                cell.setCellValue(tsk1.getPID());
+                cell.setCellValue(taskD.getPID());
                 
                 cell = row.createCell(2);
-                cell.setCellValue(tsk1.getMemory());
+                cell.setCellValue(taskD.getMemory());
                 
                 rowIndex++;
                 }
