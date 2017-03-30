@@ -68,11 +68,18 @@ public class MainApp extends Application {
     public void initTaskData() {
         TaskListReader tskRdr = new TaskListReader();
         List<Task> taskList = tskRdr.getGroupedTaskList();
-        Iterator<Task> itg = taskList.iterator();
-        while (itg.hasNext()) {
-                taskData.add(itg.next());
+        for (Task taskL : taskList ){
+            taskData.add(taskL);
         }
     }
+
+    
+    void ObservableListToString(List<Task> taskData){
+        for (Task taskD : taskData ){
+            System.out.println(taskD.toString());  
+        }
+    }
+    
 
      @Override
     public void start(Stage primaryStage) {
