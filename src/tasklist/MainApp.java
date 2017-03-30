@@ -115,12 +115,15 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
         
+        /**
+         * not testet part
         // Try to open last opened xml file with Tasks.
         File file = getTaskFilePath();
         if (file != null) {
             loadTaskDataFromFile(file);
             compareTasksListToXMLFile();
         }
+        */
     }
 
     /**
