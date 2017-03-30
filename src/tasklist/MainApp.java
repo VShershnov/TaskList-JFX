@@ -115,15 +115,15 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
         
-        /**
-         * not testet part
+        
+        //* not testet part
         // Try to open last opened xml file with Tasks.
         File file = getTaskFilePath();
         if (file != null) {
             loadTaskDataFromFile(file);
             compareTasksListToXMLFile();
         }
-        */
+        
     }
 
     /**
@@ -166,11 +166,7 @@ public class MainApp extends Application {
     public File getTaskFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         String filePath = prefs.get("filePath", null);
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
+        return new File(filePath);
     }
     
     /**
